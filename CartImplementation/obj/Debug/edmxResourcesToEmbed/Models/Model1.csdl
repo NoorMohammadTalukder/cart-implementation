@@ -1,0 +1,558 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EducationPlatformModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Assignment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentId" Type="Int32" />
+    <Property Name="MentorId" Type="Int32" />
+    <Property Name="CourseId" Type="Int32" />
+    <Property Name="Question" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Answer" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Grade" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Cours" Relationship="Self.FK_Assignments_Courses" FromRole="Assignments" ToRole="Courses" />
+    <NavigationProperty Name="Mentor" Relationship="Self.FK_Assignments_Mentors" FromRole="Assignments" ToRole="Mentors" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_Assignments_Students" FromRole="Assignments" ToRole="Students" />
+  </EntityType>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseId" Type="Int32" />
+    <Property Name="StudentId" Type="Int32" />
+    <Property Name="Price" Type="Double" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Cours" Relationship="Self.FK_Carts_Courses" FromRole="Carts" ToRole="Courses" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_Carts_Students" FromRole="Carts" ToRole="Students" />
+    <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Certificate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RecomendBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RecommderId" Type="Int32" />
+    <Property Name="ApplierId" Type="Int32" />
+    <Property Name="CourseId" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Comments" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Institution" Relationship="Self.FK_Certificates_Institutions" FromRole="Certificates" ToRole="Institutions" />
+    <NavigationProperty Name="Mentor" Relationship="Self.FK_Certificates_Mentors" FromRole="Certificates" ToRole="Mentors" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_Certificates_Students" FromRole="Certificates" ToRole="Students" />
+  </EntityType>
+  <EntityType Name="Counseling">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MentorId" Type="Int32" />
+    <Property Name="StudentId" Type="Int32" />
+    <Property Name="CourseId" Type="Int32" />
+    <Property Name="MeetLink" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Details" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Mentor" Relationship="Self.FK_Counselings_Mentors1" FromRole="Counselings" ToRole="Mentors" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_Counselings_Students" FromRole="Counselings" ToRole="Students" />
+  </EntityType>
+  <EntityType Name="CourseDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseId" Type="Int32" />
+    <Property Name="MentorId" Type="Int32" />
+    <Property Name="Material" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Module" Type="Double" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Cours" Relationship="Self.FK_CourseDetails_Mentors" FromRole="CourseDetails" ToRole="Courses" />
+    <NavigationProperty Name="Mentor" Relationship="Self.FK_CourseDetails_Mentors1" FromRole="CourseDetails" ToRole="Mentors" />
+  </EntityType>
+  <EntityType Name="Cours">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Details" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Price" Type="Double" />
+    <Property Name="Duration" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Assignments" Relationship="Self.FK_Assignments_Courses" FromRole="Courses" ToRole="Assignments" />
+    <NavigationProperty Name="Carts" Relationship="Self.FK_Carts_Courses" FromRole="Courses" ToRole="Carts" />
+    <NavigationProperty Name="CourseDetails" Relationship="Self.FK_CourseDetails_Mentors" FromRole="Courses" ToRole="CourseDetails" />
+    <NavigationProperty Name="Notices" Relationship="Self.FK_Notices_Courses" FromRole="Courses" ToRole="Notices" />
+    <NavigationProperty Name="Ratings" Relationship="Self.FK_Ratings_Courses" FromRole="Courses" ToRole="Ratings" />
+    <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Courses" FromRole="Courses" ToRole="Transactions" />
+  </EntityType>
+  <EntityType Name="Institution">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="WebsiteLink" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsValid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Certificates" Relationship="Self.FK_Certificates_Institutions" FromRole="Institutions" ToRole="Certificates" />
+    <NavigationProperty Name="Notices" Relationship="Self.FK_Notices_Institutions" FromRole="Institutions" ToRole="Notices" />
+    <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Institutions" FromRole="Institutions" ToRole="Transactions" />
+  </EntityType>
+  <EntityType Name="Mentor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Institution" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsValid" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Assignments" Relationship="Self.FK_Assignments_Mentors" FromRole="Mentors" ToRole="Assignments" />
+    <NavigationProperty Name="Certificates" Relationship="Self.FK_Certificates_Mentors" FromRole="Mentors" ToRole="Certificates" />
+    <NavigationProperty Name="Counselings" Relationship="Self.FK_Counselings_Mentors1" FromRole="Mentors" ToRole="Counselings" />
+    <NavigationProperty Name="CourseDetails" Relationship="Self.FK_CourseDetails_Mentors1" FromRole="Mentors" ToRole="CourseDetails" />
+    <NavigationProperty Name="Notices" Relationship="Self.FK_Notices_Mentors" FromRole="Mentors" ToRole="Notices" />
+    <NavigationProperty Name="Ratings" Relationship="Self.FK_Ratings_Mentors" FromRole="Mentors" ToRole="Ratings" />
+  </EntityType>
+  <EntityType Name="Notice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseId" Type="Int32" />
+    <Property Name="AnnouncedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AnnouncerId" Type="Int32" />
+    <Property Name="Details" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Cours" Relationship="Self.FK_Notices_Courses" FromRole="Notices" ToRole="Courses" />
+    <NavigationProperty Name="Institution" Relationship="Self.FK_Notices_Institutions" FromRole="Notices" ToRole="Institutions" />
+    <NavigationProperty Name="Mentor" Relationship="Self.FK_Notices_Mentors" FromRole="Notices" ToRole="Mentors" />
+  </EntityType>
+  <EntityType Name="Rating">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentId" Type="Int32" />
+    <Property Name="MentorId" Type="Int32" />
+    <Property Name="CourseId" Type="Int32" />
+    <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Cours" Relationship="Self.FK_Ratings_Courses" FromRole="Ratings" ToRole="Courses" />
+    <NavigationProperty Name="Mentor" Relationship="Self.FK_Ratings_Mentors" FromRole="Ratings" ToRole="Mentors" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_Ratings_Students" FromRole="Ratings" ToRole="Students" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Education" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Institution" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsValid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Assignments" Relationship="Self.FK_Assignments_Students" FromRole="Students" ToRole="Assignments" />
+    <NavigationProperty Name="Carts" Relationship="Self.FK_Carts_Students" FromRole="Students" ToRole="Carts" />
+    <NavigationProperty Name="Certificates" Relationship="Self.FK_Certificates_Students" FromRole="Students" ToRole="Certificates" />
+    <NavigationProperty Name="Counselings" Relationship="Self.FK_Counselings_Students" FromRole="Students" ToRole="Counselings" />
+    <NavigationProperty Name="Ratings" Relationship="Self.FK_Ratings_Students" FromRole="Students" ToRole="Ratings" />
+    <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Students" FromRole="Students" ToRole="Transactions" />
+  </EntityType>
+  <EntityType Name="Transaction">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseId" Type="Int32" />
+    <Property Name="StudentId" Type="Int32" />
+    <Property Name="InstitutionId" Type="Int32" />
+    <Property Name="BkashTransactionNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Cours" Relationship="Self.FK_Transactions_Courses" FromRole="Transactions" ToRole="Courses" />
+    <NavigationProperty Name="Institution" Relationship="Self.FK_Transactions_Institutions" FromRole="Transactions" ToRole="Institutions" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_Transactions_Students" FromRole="Transactions" ToRole="Students" />
+  </EntityType>
+  <Association Name="FK_Assignments_Courses">
+    <End Role="Courses" Type="Self.Cours" Multiplicity="0..1" />
+    <End Role="Assignments" Type="Self.Assignment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Assignments">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assignments_Mentors">
+    <End Role="Mentors" Type="Self.Mentor" Multiplicity="0..1" />
+    <End Role="Assignments" Type="Self.Assignment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mentors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Assignments">
+        <PropertyRef Name="MentorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assignments_Students">
+    <End Role="Students" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="Assignments" Type="Self.Assignment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Assignments">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Carts_Courses">
+    <End Role="Courses" Type="Self.Cours" Multiplicity="0..1" />
+    <End Role="Carts" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Carts">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Carts_Students">
+    <End Role="Students" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="Carts" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Carts">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Certificates_Institutions">
+    <End Role="Institutions" Type="Self.Institution" Multiplicity="0..1" />
+    <End Role="Certificates" Type="Self.Certificate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Institutions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Certificates">
+        <PropertyRef Name="RecommderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Certificates_Mentors">
+    <End Role="Mentors" Type="Self.Mentor" Multiplicity="0..1" />
+    <End Role="Certificates" Type="Self.Certificate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mentors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Certificates">
+        <PropertyRef Name="RecommderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Certificates_Students">
+    <End Role="Students" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="Certificates" Type="Self.Certificate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Certificates">
+        <PropertyRef Name="ApplierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Counselings_Mentors1">
+    <End Role="Mentors" Type="Self.Mentor" Multiplicity="0..1" />
+    <End Role="Counselings" Type="Self.Counseling" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mentors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Counselings">
+        <PropertyRef Name="MentorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Counselings_Students">
+    <End Role="Students" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="Counselings" Type="Self.Counseling" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Counselings">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseDetails_Mentors">
+    <End Role="Courses" Type="Self.Cours" Multiplicity="0..1" />
+    <End Role="CourseDetails" Type="Self.CourseDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CourseDetails">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseDetails_Mentors1">
+    <End Role="Mentors" Type="Self.Mentor" Multiplicity="0..1" />
+    <End Role="CourseDetails" Type="Self.CourseDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mentors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CourseDetails">
+        <PropertyRef Name="MentorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notices_Courses">
+    <End Role="Courses" Type="Self.Cours" Multiplicity="0..1" />
+    <End Role="Notices" Type="Self.Notice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Notices">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ratings_Courses">
+    <End Role="Courses" Type="Self.Cours" Multiplicity="0..1" />
+    <End Role="Ratings" Type="Self.Rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ratings">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transactions_Courses">
+    <End Role="Courses" Type="Self.Cours" Multiplicity="0..1" />
+    <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transactions">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notices_Institutions">
+    <End Role="Institutions" Type="Self.Institution" Multiplicity="0..1" />
+    <End Role="Notices" Type="Self.Notice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Institutions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Notices">
+        <PropertyRef Name="AnnouncerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transactions_Institutions">
+    <End Role="Institutions" Type="Self.Institution" Multiplicity="0..1" />
+    <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Institutions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transactions">
+        <PropertyRef Name="InstitutionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notices_Mentors">
+    <End Role="Mentors" Type="Self.Mentor" Multiplicity="0..1" />
+    <End Role="Notices" Type="Self.Notice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mentors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Notices">
+        <PropertyRef Name="AnnouncerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ratings_Mentors">
+    <End Role="Mentors" Type="Self.Mentor" Multiplicity="0..1" />
+    <End Role="Ratings" Type="Self.Rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mentors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ratings">
+        <PropertyRef Name="MentorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ratings_Students">
+    <End Role="Students" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="Ratings" Type="Self.Rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ratings">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transactions_Students">
+    <End Role="Students" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transactions">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EducationPlatformEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Assignments" EntityType="Self.Assignment" />
+    <EntitySet Name="Carts" EntityType="Self.Cart" />
+    <EntitySet Name="Certificates" EntityType="Self.Certificate" />
+    <EntitySet Name="Counselings" EntityType="Self.Counseling" />
+    <EntitySet Name="CourseDetails" EntityType="Self.CourseDetail" />
+    <EntitySet Name="Courses" EntityType="Self.Cours" />
+    <EntitySet Name="Institutions" EntityType="Self.Institution" />
+    <EntitySet Name="Mentors" EntityType="Self.Mentor" />
+    <EntitySet Name="Notices" EntityType="Self.Notice" />
+    <EntitySet Name="Ratings" EntityType="Self.Rating" />
+    <EntitySet Name="Students" EntityType="Self.Student" />
+    <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+    <AssociationSet Name="FK_Assignments_Courses" Association="Self.FK_Assignments_Courses">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Assignments" EntitySet="Assignments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assignments_Mentors" Association="Self.FK_Assignments_Mentors">
+      <End Role="Mentors" EntitySet="Mentors" />
+      <End Role="Assignments" EntitySet="Assignments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assignments_Students" Association="Self.FK_Assignments_Students">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Assignments" EntitySet="Assignments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Carts_Courses" Association="Self.FK_Carts_Courses">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Carts" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Carts_Students" Association="Self.FK_Carts_Students">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Carts" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Certificates_Institutions" Association="Self.FK_Certificates_Institutions">
+      <End Role="Institutions" EntitySet="Institutions" />
+      <End Role="Certificates" EntitySet="Certificates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Certificates_Mentors" Association="Self.FK_Certificates_Mentors">
+      <End Role="Mentors" EntitySet="Mentors" />
+      <End Role="Certificates" EntitySet="Certificates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Certificates_Students" Association="Self.FK_Certificates_Students">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Certificates" EntitySet="Certificates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Counselings_Mentors1" Association="Self.FK_Counselings_Mentors1">
+      <End Role="Mentors" EntitySet="Mentors" />
+      <End Role="Counselings" EntitySet="Counselings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Counselings_Students" Association="Self.FK_Counselings_Students">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Counselings" EntitySet="Counselings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseDetails_Mentors" Association="Self.FK_CourseDetails_Mentors">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="CourseDetails" EntitySet="CourseDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseDetails_Mentors1" Association="Self.FK_CourseDetails_Mentors1">
+      <End Role="Mentors" EntitySet="Mentors" />
+      <End Role="CourseDetails" EntitySet="CourseDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notices_Courses" Association="Self.FK_Notices_Courses">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Notices" EntitySet="Notices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ratings_Courses" Association="Self.FK_Ratings_Courses">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Ratings" EntitySet="Ratings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transactions_Courses" Association="Self.FK_Transactions_Courses">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Transactions" EntitySet="Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notices_Institutions" Association="Self.FK_Notices_Institutions">
+      <End Role="Institutions" EntitySet="Institutions" />
+      <End Role="Notices" EntitySet="Notices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transactions_Institutions" Association="Self.FK_Transactions_Institutions">
+      <End Role="Institutions" EntitySet="Institutions" />
+      <End Role="Transactions" EntitySet="Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notices_Mentors" Association="Self.FK_Notices_Mentors">
+      <End Role="Mentors" EntitySet="Mentors" />
+      <End Role="Notices" EntitySet="Notices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ratings_Mentors" Association="Self.FK_Ratings_Mentors">
+      <End Role="Mentors" EntitySet="Mentors" />
+      <End Role="Ratings" EntitySet="Ratings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ratings_Students" Association="Self.FK_Ratings_Students">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Ratings" EntitySet="Ratings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transactions_Students" Association="Self.FK_Transactions_Students">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Transactions" EntitySet="Transactions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
